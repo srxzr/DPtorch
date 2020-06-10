@@ -13,6 +13,7 @@ conda env create -f env.yml
 cd torchsearchsorted/
 pip install .
 ```
+Download https://drive.google.com/file/d/1k04lW5_IGMnHxfJMd-KR7Md9KlOgKtqi/view?usp=sharing to the main directory. 
 
 Please refer to https://github.com/aliutkus/torchsearchsorted if you had problem installing torchsearchsorted.
 
