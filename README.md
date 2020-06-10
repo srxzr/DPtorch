@@ -1,62 +1,47 @@
-> 📋A template README.md for code accompanying a Machine Learning paper
 
-# My Paper Title
+# Improving Deep Learning with Differential Privacy using Gradient Encoding and Denoising
 
-This repository is the official implementation of [My Paper Title](https://arxiv.org/abs/2030.12345). 
+This repository is the official implementation of [Improving Deep Learning with Differential Privacy using Gradient Encoding and Denoisin]
 
-> 📋Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
 
 ## Requirements
 
 To install requirements:
 
 ```setup
-pip install -r requirements.txt
+conda env create -f env.yml
+cd torchsearchsorted/
+pip install .
 ```
 
-> 📋Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
+Please refer to https://github.com/aliutkus/torchsearchsorted if you had problem installing torchsearchsorted.
+
 
 ## Training
 
 To train the model(s) in the paper, run this command:
 
-```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
-```
+```train and test
+ python MNIST.py --noisemodel studentt --noiseparams 9 0 1.0 --epochs 100 --microbatch 1 --batch 256 --ngpus 4 --nprocs 50 --clip 1.0 --seed 0  --quantization  --quantclip 1.0 --errcrt --quantmultiplier 4 --distancemultiplier 500 --distancethresh  0.700000 #MNIST
+python CIFAR10.py --noisemodel studentt --noiseparams 9 0 0.9 --epochs 300 --microbatch 2 --batch 256 --ngpus 4 --nprocs 40 --clip 1.0 --seed 0  --quantization  --quantclip 1.0 --errcrt --quantmultiplier 4 --distancemultiplier 500 --distancethresh  0.700000 #CIFAR
+ ```
 
-> 📋Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
-
-## Evaluation
-
-To evaluate my model on ImageNet, run:
-
-```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
-```
-
-> 📋Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
-
-## Pre-trained Models
-
-You can download pretrained models here:
-
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
-
-> 📋Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
+> noise model will define the probability distributions used for privatizing the gradient vector, noiseparams is the parameters for the noise model.
 
 ## Results
 
 Our model achieves the following performance on :
 
-### [Image Classification on ImageNet](https://paperswithcode.com/sota/image-classification-on-imagenet)
+### [CIFAR]
 
-| Model name         | Top 1 Accuracy  | Top 5 Accuracy |
-| ------------------ |---------------- | -------------- |
-| My awesome model   |     85%         |      95%       |
+| Model name         | Accuracy       | eps     |
+| ------------------ |----------------|---------|
+| This work          |     55%        | 3.6     |
+| DPSGD              |     55%        | 5       |
 
-> 📋Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
+### [MNIST]
 
-
-## Contributing
-
-> 📋Pick a licence and describe how to contribute to your code repository. 
+| Model name         | Accuracy       | eps     |
+| ------------------ |----------------|---------|
+| This work          |     96%        | 2.5     |
+| DPSGD              |     96%        | 5       |
